@@ -9,6 +9,9 @@ const LEFT_BOUNDARY = 0;
 const TOP_BOUNDARY = 0;
 const BOTTOM_BOUNDARY = 450;
 const LANES = [307,224,141,58];
+const STATE = 'START';
+const NUM_LIVES_START = 3;
+
 
 var Character = function(x,y,spriteImg,speed){
   //x position
@@ -64,7 +67,10 @@ Enemy.prototype.checkCollision = function(){
    this.y < player.y + COLLISION_DETECTION &&
    COLLISION_DETECTION + this.y > player.y) {
     // collision detected!
+    log(player.numLives);
     player.returnToStart();
+    player.reduceLives();
+
     }
 };
 
@@ -77,19 +83,31 @@ var createEnemy = function(){
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+//create player class
 var Player = function(x,y,spriteImg,speed){
   Character.call(this,x,y,spriteImg,speed);
-
 }
+
 Player.prototype = Object.create(Character.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
 };
+//give player number of start lives
+Player.prototype.numLives = NUM_LIVES_START;
+//reduceLives function
+Player.prototype.reduceLives = function() {
+  this.numLives--;
+};
 
 Player.prototype.returnToStart = function() {
   this.x = TILE_WIDTH;
   this.y = TILE_HEIGHT;
+};
+Player.prototype.score = 0;
+Player.prototype.updateScore = function() {
+  this.score ++;
+  log(this.score);
 };
 
 
@@ -100,6 +118,7 @@ Player.prototype.handleInput = function(btn){
   } else if (btn == 'up') {
       if (this.y - VERTICLE_MOVE < TOP_BOUNDARY) {
       //reached water
+          this.updateScore();
           this.returnToStart();
           return;
       }
@@ -128,13 +147,27 @@ var createEnemies = function(num){
       allEnemies.push(createEnemy());
     }
 };
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+var player;
 
-createEnemies(3);
+var State = function(enemies, player){
+  this.enemies = enemies
+  this.player = player;
+}
+State.prototype.start = function(){
+  player  = new Player(TILE_WIDTH, TILE_HEIGHT, 'images/char-boy.png');
+  allEnemies = new Array();
+  createEnemies(3);
+};
+
+var state = new State(allEnemies, player);
+//createEnemies(3);
 
 // Place the player object in a variable called player
-var player = new Player(TILE_WIDTH, TILE_HEIGHT, 'images/char-boy.png');
+
 
 
 // This listens for key presses and sends the keys to your
