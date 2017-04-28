@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Craps Game</title>
+  </head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  <body>
+
+    <form name="craps" class="board">
+      <table>
+        <tr>
+          <td>
+            Die 1
+          </td>
+          <td>
+            <p id = "firstDie">0</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Die 2
+          </td>
+          <td>
+            <p id = "secondDie">0</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Sum
+          </td>
+          <td>
+            <p id = "sum">0</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Point
+          </td>
+          <td>
+            <p id = "point">0</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="button"  id ="roll" value="Roll Dice" onclick="play()"/>
+          </td>
+          <td>
+            <p id = "notification">Start Game</p>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+        <script src='script.js'></script>
+  </body>
+</html>
