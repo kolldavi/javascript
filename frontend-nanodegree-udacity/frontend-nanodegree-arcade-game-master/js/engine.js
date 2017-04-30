@@ -26,7 +26,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 606;
+    canvas.height = 656;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -95,7 +95,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
 
-      //  player.update();
+        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -124,6 +124,7 @@ var Engine = (function(global) {
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
+
         for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
                 /* The drawImage function of the canvas' context element
@@ -136,7 +137,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
+         ctx.drawImage(Resources.get('images/Selector.png'), 202, 375);
         renderEntities();
     }
 
@@ -175,7 +176,8 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-horn-girl.png',
         'images/char-cat-girl.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Selector.png'
     ]);
     Resources.onReady(init);
 
