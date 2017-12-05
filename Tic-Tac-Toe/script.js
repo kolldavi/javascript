@@ -19,10 +19,8 @@ $(document).ready(function() {
       //check for winning move
       for (let i = 1; i < 10; i++) {
         if ($('#' + i).text() === '') {
-          console.log('blank', i);
           $('#' + i).text(player2Side);
           if (checkWinner(player2Side)) {
-            console.log('win', i);
             player1 = true;
             return;
           }
@@ -34,7 +32,6 @@ $(document).ready(function() {
         if ($('#' + i).text() === '') {
           $('#' + i).text(player1Side);
           if (checkWinner(player1Side)) {
-            console.log('save', i);
             $('#' + i).text(player2Side);
             player1 = true;
             return;
